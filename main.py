@@ -24,6 +24,13 @@ def stringToLines(string):
     lines = string.splitlines()
     return lines
 
+def linesToList(lines):
+    output = []
+    for l in lines:
+        for w in l:
+            output.append(w)
+    return output
+
 ##main code for this applet
 line = stringToLines(raw_text)
 ##first line of censorship
@@ -32,4 +39,24 @@ for l in line:
         if profaneWords.compare(w) == True:
             w = profaneWords.censor(w)
 
-
+print """
+<html>
+    <head>
+        <title>Censored text - result.html</title>
+        <style>
+            p {
+                border:1px solid red;
+                padding:10px;
+                margin:30px;
+            }
+        </style>
+    </head>
+    <body>
+        <center><p><font size = "5">Results from the filtering program:</font></p></center>
+        <br><br><br>
+        <form method="post" action="result.cgi">
+            <output type="text" name="censored"/>
+        </form>
+    </body>
+    </html>
+""" % cgi.escape(message)
