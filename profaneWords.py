@@ -2,16 +2,16 @@
 ##that is, all words that are unambiguously profane -- which are contained in the profaneWords plain text file
 
 ##is passed a line from the main function and finds the words that are on the profane word list
-wordlist = open(profaneWords, r)
+wordlist = open(profaneWords.txt, r)
 
-def compare(str x):
+def compare(str):
     for w in wordlist.readline():
-        if x == w:
+        if str == w:
             return True
     return False
 
-def censor(str x):
+def censor(str):
     out = ''
-    for c in x:
-        out+=*
+    for c in str:
+        out+='*'
     return out

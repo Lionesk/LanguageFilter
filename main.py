@@ -1,5 +1,6 @@
+#!/usr/bin/python
+
 import sys
-import bannedWords
 import cgi, cgitb
 import profaneWords
 
@@ -31,14 +32,16 @@ def linesToList(lines):
             output.append(w)
     return output
 
-##main code for this applet
-line = stringToLines(raw_text)
-##first line of censorship
-for l in line:
-    for w in l:
-        if profaneWords.compare(w) == True:
-            w = profaneWords.censor(w)
+def main():
+    line = stringToLines(raw_text)
+    form = cgi.FieldStorage()
+    ##first line of censorship
+    for l in line:
+        for w in l:
+            if profaneWords.compare(w) == True:
+                w = profaneWords.censor(w)
 
+print "Content-type:text/html\n"
 print """
 <html>
     <head>
