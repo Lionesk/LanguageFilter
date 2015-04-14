@@ -22,7 +22,6 @@ def linesToList(lines):
     output2 = [[] for s in range(len(output))]
     for s in range(len(output)):
         output2[s].append(output[s]) # makes into list of lists format
-    print output2
     return output2
 
 def asterisk(s): 
@@ -64,19 +63,19 @@ def main():
             goodInput = True
         else:
             print "Input not recognized, please try again."
-    ##print inputList - for debugging
     for pos, w in enumerate(inputList):
-        if profaneWords.compare(w) == True:
+        if profaneWords.compare(w):
             inputList[pos].append(True)
         ##elif:
             ##variation check
         else:
-            inputList[pos].append(False) 
+            inputList[pos].append(False)
     output = censor(inputList)
-    print "Here is the filtered text."
-    print output
+    with open('results.txt', 'w') as f:
+            f.write(output)
+    print "Filtered text has been written to 'results.txt'." 
 
-# linesToList(stringToLines("Fuck your bitch ass, motherfucker")) # to test the list of lists
-
+##print linesToList(stringToLines("Fuck your bitch ass, motherfucker")) # to test the list of lists
+##print profaneWords.compare('fuck')
 main()
 ##print censor([['Fuck',True],['your',False],['bitch',True],['ass',True]])
