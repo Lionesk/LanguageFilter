@@ -50,7 +50,7 @@ def main():
     goodInput = False
     while(goodInput != True):
         # CHANGE BACK!!!
-        choice = 'f'# raw_input("Type f to input a filename and s to type a string.\n").lower()
+        choice = raw_input("Type f to input a filename and s to type a string.\n").lower()
         if(choice == 'f'):
             fileName = 'carlin.txt'# raw_input("Enter the name of your file (must me in same directory).\n").lower()
             if(os.path.isfile(fileName)):
@@ -59,7 +59,7 @@ def main():
             else:
                 print "File does not exist in directory."
         elif(choice == 's'):
-            inputString = input("Type the string you would like to filter.\n").lower()
+            inputString = raw_input("Type the string you would like to filter.\n")
             inputList = linesToList(stringToLines(inputString))
             goodInput = True
         else:
@@ -74,8 +74,8 @@ def main():
             inputList[w].append(False) 
     output = censor(inputList)
 #    print inputList
-    print "Here is the filtered text."
-    print output
+   # print "Here is the filtered text."
+  #  print output
 
 # linesToList(stringToLines("Fuck your bitch ass, motherfucker")) # to test the list of lists
     with open('results.txt', 'w') as f:
