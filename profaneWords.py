@@ -5,7 +5,7 @@
 def compare(x):
     wordList = open('profaneWords.txt', 'r')
     for w in wordList.readline():
-        if x == w:
+        if x.lower() == w:
             return True
     wordList.close()
     return False
