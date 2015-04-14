@@ -3,9 +3,15 @@
 
 ##is passed a line from the main function and finds the words that are on the profane word list
 def compare(x):
-    wordList = open('profaneWords.txt', 'r')
-    for w in wordList.readline():
-        if x == w:
+    wordListRaw = open('profaneWords.txt', 'r')
+    wordListRaw2 = wordListRaw.readlines()
+    wordList = []
+    for line in range(len(wordListRaw2)):
+    	wordList.append(wordListRaw2[line].split('\t')) # splits TSV
+    for w in range(1,len(wordList)): # ignores headers
+        if x == wordList[w][0]: # looks only at first 'column'
             return True
-    wordList.close()
     return False
+# print compare('fuck') # for debugging
+# print compare('sex')
+# print compare('word')
