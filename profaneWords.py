@@ -21,3 +21,5 @@ def checkVariations(x):
 # print compare ('Fuck')
 # print compare('fucks')
 # print compare('word')
+# print compare('sex')
+# print compare('word')

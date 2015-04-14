@@ -78,6 +78,11 @@ def main():
     print output
 
 # linesToList(stringToLines("Fuck your bitch ass, motherfucker")) # to test the list of lists
+    with open('results.txt', 'w') as f:
+            f.write(output)
+    print "Filtered text has been written to 'results.txt'." 
 
+##print linesToList(stringToLines("Fuck your bitch ass, motherfucker")) # to test the list of lists
+##print profaneWords.compare('fuck')
 main()
 ##print censor([['Fuck',True],['your',False],['bitch',True],['ass',True]])
