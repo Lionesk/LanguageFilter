@@ -22,7 +22,6 @@ def linesToList(lines):
     output2 = [[] for s in range(len(output))]
     for s in range(len(output)):
         output2[s].append(output[s]) # makes into list of lists format
-    print output2
     return output2
 
 def asterisk(s): 
@@ -50,9 +49,10 @@ def main():
     print "LanguageFilter Beta -- By Emilio Assuncao and Liam Bassford"
     goodInput = False
     while(goodInput != True):
-        choice = raw_input("Type f to input a filename and s to type a string.\n").lower()
+        # CHANGE BACK!!!
+        choice = 'f'# raw_input("Type f to input a filename and s to type a string.\n").lower()
         if(choice == 'f'):
-            fileName = raw_input("Enter the name of your file (must me in same directory).\n").lower()
+            fileName = 'carlin.txt'# raw_input("Enter the name of your file (must me in same directory).\n").lower()
             if(os.path.isfile(fileName)):
                 inputList = linesToList(fileToLines(fileName))
                 goodInput = True
@@ -64,15 +64,16 @@ def main():
             goodInput = True
         else:
             print "Input not recognized, please try again."
-    ##print inputList - for debugging
-    for pos, w in enumerate(inputList):
-        if profaneWords.compare(w) == True:
-            inputList[pos].append(True)
+    ##print inputList #- for debugging
+    for w in range(len(inputList)):
+        if profaneWords.compare(inputList[w][0]) == True:
+            inputList[w].append(True)
         ##elif:
             ##variation check
         else:
-            inputList[pos].append(False) 
+            inputList[w].append(False) 
     output = censor(inputList)
+#    print inputList
     print "Here is the filtered text."
     print output
 
