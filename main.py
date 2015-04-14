@@ -67,16 +67,16 @@ def main():
     ##print inputList - for debugging
     for pos, w in enumerate(inputList):
         if profaneWords.compare(w) == True:
-            inputList[pos][1].append(True)
+            inputList[pos].append(True)
         ##elif:
             ##variation check
         else:
-            inputList[pos][1].append(False) 
+            inputList[pos].append(False) 
     output = censor(inputList)
     print "Here is the filtered text."
     print output
 
 # linesToList(stringToLines("Fuck your bitch ass, motherfucker")) # to test the list of lists
 
- main()
+main()
 ##print censor([['Fuck',True],['your',False],['bitch',True],['ass',True]])
