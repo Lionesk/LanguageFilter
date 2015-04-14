@@ -1,31 +1,54 @@
-arse
-ass
-bastard
-bollocks
-boong
-bugger
-butthole
-clit
-cunt
-damn
-faggot
-fuck
-hard-on
-hebe
-jap
-kaffir
-kike
-mofo
-motherfucker
-nigga
-nigger
-paki
-piss
-poofter
-schlong
-shit
-slag
-slant-eye
-spic
-turd
-twat
+word	ambigLex	ambigStr	okContextBefore	okContextAfter	okCategory	okStr
+arse	0	1	null	null	null	arsenal
+ass	0	1	null	null	null	pass
+bastard	0	0	null	null	null	null
+bollocks	0	0	null	null	null	null
+boong	0	0	null	null	null	null
+bugger	0	0	null	null	null	null
+butthole	1	0	null	surfers	null	null
+clit	0	0	null	null	null	null
+cunt	0	0	null	null	null	null
+damn	0	0	null	null	null	null
+faggot	1	0	pork	null	null	null
+fuck	0	0	null	null	null	null
+hard-on	0	0	null	null	null	null
+hebe	0	1	null	null	null	thebes
+jap	0	1	null	null	null	japan
+kaffir	0	0	null	null	null	null
+kike	0	0	null	null	null	null
+mofo	0	1	null	null	null	mofongo
+motherfucker	0	0	null	null	null	null
+nigga	0	0	null	null	null	null
+nigger	0	0	null	null	null	null
+paki	0	1	null	null	null	pakistan
+piss	0	0	null	null	null	null
+poofter	0	0	null	null	null	null
+schlong	0	0	null	null	null	null
+shit	0	1	null	null	null	mishit
+slag	0	1	null	null	null	slagheap
+slant-eye	0	0	null	null	null	null
+spic	1	0	null	and span	null	null
+turd	0	0	null	null	null	null
+twat	0	1	null	null	null	atwater
+balls	2	0	null	null	NOT-anatomy	null
+bitch	2	0	null	null	dog	null
+bloody	2	0	null	null	anatomy	null
+boner	2	0	null	null	mistake	null
+chink	2	0	null	null	armor	null
+cock	2	1	null	null	NOT-anatomy	cockle
+coon	2	1	null	null	NOT-racial	coonskin
+cripple	2	0	null	null	verb	null
+dick	2	1	spotted~private	null	name	dickens
+dyke	1	0	null	null	null	null
+fag	2	1	null	null	smoking	wharfage
+nads	1	1	null	null	null	gonads
+nuts	2	0	null	null	NOT-anatomy	walnuts
+poof	2	1	null	null	NOT-sexual	spoof
+prick	2	0	null	null	NOT-anatomy	prickly
+pussy	2	0	null	null	NOT-anatomy	pussycat
+retard	2	0	null	null	verb	null
+retarded	2	0	null	null	verb	null
+screw	2	0	null	null	NOT-sexual	null
+shag	2	1	null	null	NOT-sexual	shagreen
+spastic	2	0	null	null	adjective	null
+spook	2	0	null	null	NOT-racial	null
