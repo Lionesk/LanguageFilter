@@ -19,7 +19,11 @@ def linesToList(lines):
     for l in lines:
         for w in l.split():
             output.append(w)
-    return output
+    output2 = [[] for s in range(len(output))]
+    for s in range(len(output)):
+        output2[s].append(output[s]) # makes into list of lists format
+    print output2
+    return output2
 
 def asterisk(s): 
 # INPUT: a string. OUTPUT: that string, with all characters except the first replaced with asterisks
@@ -72,5 +76,7 @@ def main():
     print "Here is the filtered text."
     print output
 
-main()
+# linesToList(stringToLines("Fuck your bitch ass, motherfucker")) # to test the list of lists
+
+ main()
 ##print censor([['Fuck',True],['your',False],['bitch',True],['ass',True]])

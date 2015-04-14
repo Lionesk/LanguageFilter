@@ -34,7 +34,7 @@ prefixes = []
 
 okayContexts = {} # dictionary for 
 
-print leet
+# print leet
 
 def filterVariations(ls):
 	for s in ls:
