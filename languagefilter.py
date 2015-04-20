@@ -53,6 +53,7 @@ def menu():
                 break
             if case('i'):
                 info()
+                raw_input("Continue...")
                 break
             if case('k'):
                 print "\nType in the string you would like to filter.\n"
