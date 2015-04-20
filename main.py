@@ -45,7 +45,7 @@ def censor(words):
     return censored
 
 def main():
-
+    cs = 5 # CONTEXT SIZE--defaults to 5 but can be adjusted
     inputList = []
     print "LanguageFilter Beta -- By Emilio Assuncao and Liam Bassford"
     goodInput = False
@@ -69,14 +69,14 @@ def main():
     for w in range(len(inputList)):
         # print inputList[w][0]
         context = []
-        if w-10 < 0 and w+10 >= len(inputList):
+        if w-cs < 0 and w+cs >= len(inputList):
             context = inputList[0:len(inputList)]
-        elif w-10 < 0 and w+10 < len(inputList):
-            context = inputList[0:w+10]
-        elif w-10 >= 0 and w+10 >= len(inputList):
-            context = inputList[w-10:len(inputList)]
+        elif w-cs < 0 and w+cs < len(inputList):
+            context = inputList[0:w+cs]
+        elif w-cs >= 0 and w+cs >= len(inputList):
+            context = inputList[w-cs:len(inputList)]
         else:
-            context = inputList[w-10:w+10]
+            context = inputList[w-cs:w+cs]
         # print context
         contextCopy = []
         for i in range(len(context)):

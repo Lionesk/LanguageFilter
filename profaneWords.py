@@ -1,10 +1,10 @@
 ##this file contains all the fucntions for removing/replacing profane words from a text
 ##that is, all words that are unambiguously profane -- which are contained in the profaneWords plain text file
 import re
-import levenshtein
+from levenshtein import levenshtein
 import wsd
 ##is passed a line from the main function and finds the words that are on the profane word list
-# input: x, a string passed from main.py; c, the string's context (10 words in either direction, including x)
+# input: x, a string passed from main.py; c, the string's context (n words in either direction, including x, list format)
 # output: True if word should be censored, False otherwise
 def compare(y, con):
 	x = y.lower()
@@ -23,19 +23,22 @@ def compare(y, con):
 	for line in range(len(wordListRaw2)):
 		wordList.append(wordListRaw2[line].split('\t')) # splits TSV
 	for w in range(1,len(wordList)): # ignores headers
+		if (wordList[w][0] == x or wordList[w][0] + 's' == x or wordList[w][0] + 'es' == x or wordList[w][0] + 'ed' == x) and wordList[w][2] == '0':
+			# print 'unambiguous'
+			return True # avoids excess bureaucracy if not needed 
 		if wordList[w][0] in x: # looks only at first 'column'	
 			if wordList[w][1] == '0' and wordList[w][2] == '0': # i.e. if no ambiguity possible
-				# print x + ' unambiguous'
+			#	print x + ' unambiguous'
 				return True
-			elif wordList[w][2] == '1':
-				# print x + ' string ambiguous'
-				return stringCheck(x)
-			elif wordList[w][1] == '1':
-				# print x + ' semantically ambiguous, restricted context'
+			elif wordList[w][1] == '1': # if word is semantically ambiguous in a restricted context (non-profane only in fossilized expressions)
+			#	print x + ' semantically ambiguous, restricted context'
 				return examineImmediateContext(x, c)
-			elif wordList[w][1] == '2':
-				# print x + ' semantically ambiguous, unrestricted context'
+			elif wordList[w][1] == '2': # if word is always semantically ambiguous
+			#	print x + ' semantically ambiguous, unrestricted context'
 				return wsd.assignWeights(c, wsd.getRatios(wordList[w][0]))
+			elif wordList[w][2] == '1': # if word is string ambiguous
+			#	print x + ' string ambiguous'
+				return stringCheck(x)			
 	# print 'no objection found to ' + x + ', returning false'
 	return False
 
@@ -46,12 +49,12 @@ def examineImmediateContext(x, c):
 	return True
 
 def stringCheck(x):
-	whitelistRaw = open('emwClean.csv','r')
+	whitelistRaw = open('whitelist.csv','r')
 	whitelist = whitelistRaw.readlines()
-	white = ''.join(whitelist)
-	exact = '\n'+x+'\n'
-	# print white
-	if exact in white:
-		return False
-	else:
-		return True
+	for w in range(len(whitelist)):
+		whitelist[w] = whitelist[w].replace('\n','')
+	for w in whitelist:
+		if levenshtein(w, x) <= 1 and len(x) >= 6: # allows for minor misspellings of innocuous word, but only in longer words
+			# print 'variant of ' + w
+			return False
+	return True
