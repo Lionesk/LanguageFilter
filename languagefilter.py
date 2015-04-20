@@ -20,6 +20,7 @@ class switch(object):
             return False
 
 def ascii():
+    os.system('cls' if os.name == 'nt' else 'clear')
     print "################################################################"
     print "  _                                        ___ _ _ _           "
     print " | |   __ _ _ _  __ _ _  _ __ _ __ _ ___  | __(_) | |_ ___ _ _ "
