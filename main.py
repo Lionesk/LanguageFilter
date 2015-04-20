@@ -45,6 +45,7 @@ def censor(words):
     return censored
 
 def main():
+
     inputList = []
     print "LanguageFilter Beta -- By Emilio Assuncao and Liam Bassford"
     goodInput = False
@@ -64,15 +65,32 @@ def main():
             goodInput = True
         else:
             print "Input not recognized, please try again."
-    ##print inputList #- for debugging
+    # print inputList #- for debugging
     for w in range(len(inputList)):
-        context = ' '.join(inputList)
-        if profaneWords.compare(inputList[w][0], context) == True:
+        # print inputList[w][0]
+        context = []
+        if w-10 < 0 and w+10 >= len(inputList):
+            context = inputList[0:len(inputList)]
+        elif w-10 < 0 and w+10 < len(inputList):
+            context = inputList[0:w+10]
+        elif w-10 >= 0 and w+10 >= len(inputList):
+            context = inputList[w-10:len(inputList)]
+        else:
+            context = inputList[w-10:w+10]
+        # print context
+        contextCopy = []
+        for i in range(len(context)):
+            contextCopy.append(context[i])
+        inputListCopy = []
+        for i in range(len(inputList)):
+            inputListCopy.append(inputList[i])
+        if profaneWords.compare(inputListCopy[w][0], contextCopy) == True:
             inputList[w].append(True)
         ##elif:
             ##variation check
         else:
             inputList[w].append(False) 
+        # print inputList[w]
     output = censor(inputList)
 #    print inputList
     print "Here is the filtered text."

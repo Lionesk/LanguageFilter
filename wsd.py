@@ -1,6 +1,7 @@
 # input: a context file
 # output: a dictionary
 import re
+
 def wordbag(f,s):
 	raw = open(f, 'r')
 	raw2 = raw.readlines()
@@ -48,23 +49,24 @@ def getRatios(s):
 #		print rlist[n][1]
 	return ratios
 
-# input: a string consisting of a sentence and a dictionary (the output of getRatios(s))
+# input: a list consisting of a sentence, and a dictionary (the output of getRatios(s))
 # output: True if product < 1 (i.e. word ) 
-def assignWeights(s, r):
-	s = s.lower()
-	s = re.sub(r'[^a-z ]','',s)
-	print s
+def assignWeights(cont, r):
+	for s in cont: 
+		s = s.lower()
+		s = re.sub(r'[^a-z ]','',s)
+		# print s
 	product = 1.0
-	words = s.split()
-	for w in words:
+	# print cont
+	for w in cont:
 		if w in r:
 			product = product * r[w]
-			print w
-			print product
+			# print w
+			# print product
 	if product > 1:
 		return False
 	return True
 
-carlin = open('carlin.txt','r')
-carlin2 = carlin.read().replace('\n',' ')
-print assignWeights(carlin2,getRatios('dick'))
+#carlin = open('carlin.txt','r')
+#carlin2 = carlin.read().replace('\n',' ')
+#print assignWeights(carlin2.split(),getRatios('balls'))

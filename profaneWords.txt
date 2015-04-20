@@ -52,3 +52,4 @@ screw	2	0	null	null	NOT-sexual	null
 shag	2	1	null	null	NOT-sexual	shagreen
 spastic	2	0	null	null	adjective	null
 spook	2	0	null	null	NOT-racial	null
+tit	0	1	null	null	null	titmouse
