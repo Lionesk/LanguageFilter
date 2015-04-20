@@ -1,6 +1,7 @@
 ##this file contains all the fucntions for removing/replacing profane words from a text
 ##that is, all words that are unambiguously profane -- which are contained in the profaneWords plain text file
 import re
+import levenshtein
 ##is passed a line from the main function and finds the words that are on the profane word list
 def compare(x):
 	x = x.lower()
@@ -11,8 +12,10 @@ def compare(x):
 		wordList.append(wordListRaw2[line].split('\t')) # splits TSV
 	for w in range(1,len(wordList)): # ignores headers
 		if wordList[w][0] in x: # looks only at first 'column'
-			checkVariations(x)
 			return True
+		else:
+			if checkVariations = True:
+				return True
 	return False
 
 def checkVariations(x):
