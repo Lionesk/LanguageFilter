@@ -1,4 +1,4 @@
-import sys, os, os.path
+import sys, os
 import profaneWords, variations
 
 ##adding functionality for reading the profanity from files, making them into things that can be passed to functions in this
@@ -48,10 +48,15 @@ def outputToFile(filename, content):
 	# linesToList(stringToLines("Fuck your bitch ass, motherfucker")) 		# to test the list of lists
     with open(filename, 'w') as f:
             f.write(content)
-    print "Filtered text has been written to '%s'." %filename 
+    print "Filtered text has been written to '%s'." % filename 
 
-def main(raw):
-    inputList = []
+def fileMain(filename, outputname):
+    inlist = linesToList(fileToLines(filename))
+    output = main(inlist)
+    print "Filtering the contents of %s, and writing them to %s." % (filename, outputname)
+    outputToFile(outputname, output)
+
+def main(inputList):
     for w in range(len(inputList)):
         if profaneWords.compare(inputList[w][0]) == True:
             inputList[w].append(True)
@@ -60,6 +65,7 @@ def main(raw):
         else:
             inputList[w].append(False) 
     output = censor(inputList)
+    return output
 
 ##print linesToList(stringToLines("Fuck your bitch ass, motherfucker")) # to test the list of lists
 ##print profaneWords.compare('fuck')

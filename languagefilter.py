@@ -1,5 +1,5 @@
 import sys, os, os.path
-import main
+from main import fileToLines, stringToLines, linesToList, main, fileMain
 
 class switch(object):
     def __init__(self, value):
@@ -32,6 +32,7 @@ def ascii():
 
 def info():
     print "\n##########"
+    print "Composed of languagefilter.py, main.py, ProfaneWords.py, variations.py,\n this program uses many lines of filtering to optimize the removal of foul language.\n"
     print "This CLI made possible with patorjk.com and code.activestate.com/recipes/410692"
     print "##########\n\n\n"
 
@@ -44,7 +45,7 @@ def menu():
         print "t: Filter a text file."
         print "x: Exit."
         print "i: About this program.\n"
-        o = raw_input(" :")
+        o = raw_input(":")
         for case in switch(o):
             if case('x'):
                 print "\nExiting the program."
@@ -55,13 +56,39 @@ def menu():
                 break
             if case('k'):
                 print "\nType in the string you would like to filter.\n"
-                rawInput = raw_input(" :")
-                main(rawInout)
+                rawInput = raw_input(":")
+                print "\nHere is the filtered string:"
+                print main(linesToList(stringToLines(rawInput)))
+                raw_input("Continue...\n")
+		print "\n\n\n"
                 break
             if case('t'):
-                break
+                filename = raw_input("\nPlease enter the name of the file.\n:")
+                while os.path.exists(filename) == False:
+                    print "File couldn't be found."
+                    filename = raw_input("\nPlease enter the name of the file.")
+                print "Would you like to write the results to a text file?\n(y/n)"
+                t = raw_input(":")
+                for case in switch(t):
+                    if case('y'):
+                        outfilename = raw_input("\nEnter a name for the output file. (Default is results.txt)\n:")
+                        if(outfilename == ''):
+                            outfilename = 'results.txt'
+                        fileMain(filename, outfilename)
+                        break
+                    if case('n'):
+                        print "\nHere is the filtered text:"
+                        print main(linesToList(fileToLines(filename)))
+                        break
+                    if case():
+                        print "\nIncorrect input."
+                        break
+                raw_input("Continue...\n")
+		print "\n\n\n"                
+		break
             if case():
-                print "\nIncorrect input."
+                print "\nIncorrect input.\n\n\n"
                 break
 
+#calling the menu fucntion which serves as the main
 menu()
