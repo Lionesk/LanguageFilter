@@ -57,7 +57,7 @@ def fileMain(filename, outputname):
     outputToFile(outputname, output)
 
 def main(inputList):
-	cs = 5
+    cs = 5 # context size
     for w in range(len(inputList)):
     	# print inputList[w][0]
         context = []
