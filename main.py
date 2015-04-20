@@ -66,7 +66,8 @@ def main():
             print "Input not recognized, please try again."
     ##print inputList #- for debugging
     for w in range(len(inputList)):
-        if profaneWords.compare(inputList[w][0]) == True:
+        context = ' '.join(inputList)
+        if profaneWords.compare(inputList[w][0], context) == True:
             inputList[w].append(True)
         ##elif:
             ##variation check
