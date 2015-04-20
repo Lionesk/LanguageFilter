@@ -57,13 +57,32 @@ def fileMain(filename, outputname):
     outputToFile(outputname, output)
 
 def main(inputList):
+	cs = 5
     for w in range(len(inputList)):
-        if profaneWords.compare(inputList[w][0]) == True:
+    	# print inputList[w][0]
+        context = []
+        if w-cs < 0 and w+cs >= len(inputList):
+            context = inputList[0:len(inputList)]
+        elif w-cs < 0 and w+cs < len(inputList):
+            context = inputList[0:w+cs]
+        elif w-cs >= 0 and w+cs >= len(inputList):
+            context = inputList[w-cs:len(inputList)]
+        else:
+            context = inputList[w-cs:w+cs]
+        # print context
+        contextCopy = []
+        for i in range(len(context)):
+            contextCopy.append(context[i])
+        inputListCopy = []
+        for i in range(len(inputList)):
+            inputListCopy.append(inputList[i])
+        if profaneWords.compare(inputListCopy[w][0], contextCopy) == True:
             inputList[w].append(True)
         ##elif:
             ##variation check
         else:
             inputList[w].append(False) 
+        # print inputList[w]
     output = censor(inputList)
     return output
 
