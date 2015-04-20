@@ -68,7 +68,7 @@ def menu():
                 filename = raw_input("\nPlease enter the name of the file.\n:")
                 while os.path.exists(filename) == False:
                     print "File couldn't be found."
-                    filename = raw_input("\nPlease enter the name of the file.")
+                    filename = raw_input("\nPlease enter the name of the file.\n:")
                 print "Would you like to write the results to a text file?\n(y/n)"
                 t = raw_input(":")
                 for case in switch(t):
