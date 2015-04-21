@@ -59,7 +59,6 @@ def fileMain(filename, outputname):
 def main(inputList):
     cs = 5 # context size
     for w in range(len(inputList)):
-    	# print inputList[w][0]
         context = []
         if w-cs < 0 and w+cs >= len(inputList):
             context = inputList[0:len(inputList)]
@@ -76,6 +75,7 @@ def main(inputList):
         inputListCopy = []
         for i in range(len(inputList)):
             inputListCopy.append(inputList[i])
+        # print contextCopy
         if profaneWords.compare(inputListCopy[w][0], contextCopy) == True:
             inputList[w].append(True)
         ##elif:

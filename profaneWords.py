@@ -11,50 +11,76 @@ def compare(y, con):
 	c = []
 	for w in range(len(con)):
 		c.append(con[w][0].lower())
-		c[w] = c[w][0].replace('\n','')
-		c[w] = re.sub(r'[^a-z ]','',c[w][0])
-	x = x.replace('\n','')
-	# print x
-	# print c
-	x = re.sub(r'[^a-z ]','',x)
-	wordListRaw = open('profaneWords.txt', 'r')
+		c[w] = c[w].replace('\n','')
+		c[w] = re.sub(r'[^a-z ]','',c[w]) # strips all non-alphanumeric characters
+	x = x.replace('\n','') # strips newline
+	x = re.sub(r'[^a-z ]','',x) # turns to lowercase, strips all non-alphanumeric characters
+	#print c
+	wordListRaw = open('profaneWords.txt', 'r') # opens the blacklist
 	wordListRaw2 = wordListRaw.readlines()
 	wordList = []
 	for line in range(len(wordListRaw2)):
 		wordList.append(wordListRaw2[line].split('\t')) # splits TSV
 	for w in range(1,len(wordList)): # ignores headers
-		if (wordList[w][0] == x or wordList[w][0] + 's' == x or wordList[w][0] + 'es' == x or wordList[w][0] + 'ed' == x) and wordList[w][2] == '0':
-			# print 'unambiguous'
+		if (wordList[w][0] == x and wordList[w][1] == '0') or (wordList[w][0] + 's' == x or wordList[w][0] + 'es' == x or wordList[w][0] + 'ed' == x):
 			return True # avoids excess bureaucracy if not needed 
-		if wordList[w][0] in x: # looks only at first 'column'	
+		if wordList[w][0] in x: # looks only at first 'column'
+			censor = True # default value
 			if wordList[w][1] == '0' and wordList[w][2] == '0': # i.e. if no ambiguity possible
-			#	print x + ' unambiguous'
-				return True
-			elif wordList[w][1] == '1': # if word is semantically ambiguous in a restricted context (non-profane only in fossilized expressions)
-			#	print x + ' semantically ambiguous, restricted context'
-				return examineImmediateContext(x, c)
-			elif wordList[w][1] == '2': # if word is always semantically ambiguous
-			#	print x + ' semantically ambiguous, unrestricted context'
-				return wsd.assignWeights(c, wsd.getRatios(wordList[w][0]))
+				return censor
+			if wordList[w][1] == '1': # if word is semantically ambiguous in a restricted context (non-profane only in fossilized expressions)
+				if examineImmediateContext(x,c) == True: # if word is not in an exceptional context
+					return stringCheck(x) # make sure it's not an accidental string and return that
+				else:
+					return examineImmediateContext(x,c)
+			if wordList[w][1] == '2': # if word is always semantically ambiguous
+				censor = wsd.assignWeights(c, wsd.getRatios(wordList[w][0])) # use NB classifier (see wsd.py)
 			elif wordList[w][2] == '1': # if word is string ambiguous
-			#	print x + ' string ambiguous'
-				return stringCheck(x)			
-	# print 'no objection found to ' + x + ', returning false'
+				censor = stringCheck(x)
+			return censor
+		if levenshtein(wordList[w][0],x) <= 1: # if word is less than 1 letter away from a word on the blacklist
+			if isWord(x) == False: # check to see if it's a real word in the full dictionary
+				return False
+			else:
+				return True		
 	return False
 
-# input: a string passed from compare(x)
+# input: a string passed from compare(x) and its context
 # output: True if word should be censored, False otherwise
 
-def examineImmediateContext(x, c):
-	return True
 
-def stringCheck(x):
+
+def examineImmediateContext(x, c):
+	wordListRaw = open('profaneWords.txt', 'r')
+	wordListRaw2 = wordListRaw.readlines()
+	wordList = []
+	for line in range(len(wordListRaw2)):
+		wordList.append(wordListRaw2[line].split('\t')) # splits TSV
+	cens = True
+	for w in range(1, len(wordList)):
+		if wordList[w][0] in x:
+			for n in c:
+				if wordList[w][3] in n: # if the word that makes it acceptable is in the context (at all, either direction)
+					cens = False
+	return cens
+
+def isWord(x): # sees if word is in emwClean.csv
+	words = open('emwClean.csv','r')
+	wordlist = words.readlines()
+	for w in wordlist:
+		if w in x:
+			return True
+		else:
+			return False
+
+def stringCheck(x): # sees if word is in truncated whitelist (shortened from emwClean.csv for speed of operation, to contain only clean words with coincidental profanity)
+	#print 'lol'
 	whitelistRaw = open('whitelist.csv','r')
 	whitelist = whitelistRaw.readlines()
 	for w in range(len(whitelist)):
 		whitelist[w] = whitelist[w].replace('\n','')
 	for w in whitelist:
-		if levenshtein(w, x) <= 1 and len(x) >= 6: # allows for minor misspellings of innocuous word, but only in longer words
-			# print 'variant of ' + w
-			return False
-	return True
+		if w == x or (levenshtein(w, x) <= 1 and len(x) >= 6) or (x == (w + 's')) or (x == (w + 'es')) or (x == (w + 'ed')): # allows for minor misspellings of innocuous word, but only in longer words; also allows plurals and past tense
+			#print w
+			return False # i.e. don't censor
+	return True # i.e. censor (default value)
