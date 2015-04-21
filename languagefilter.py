@@ -1,6 +1,7 @@
 import sys, os, os.path
 from main import fileToLines, stringToLines, linesToList, main, fileMain
 
+#A recipe we pulled from the web for implementing a switch feature in Python, very useful for the CLI.
 class switch(object):
     def __init__(self, value):
         self.value = value
@@ -19,6 +20,7 @@ class switch(object):
         else:
             return False
 
+#The banner that appears at the top of the program. Clears the command line (cross platform) to make the program look clean.
 def ascii():
     os.system('cls' if os.name == 'nt' else 'clear')
     print "################################################################"
@@ -31,16 +33,22 @@ def ascii():
     print "Version 0.1 #################### Liam Bassford & Emilio Assuncao"
     print "\n\n\n"
 
+#Basic information about the program. Called by the menu function when the user inputs the command.
 def info():
     print "\n##########"
-    print "Composed of languagefilter.py, main.py, ProfaneWords.py, variations.py,\n this program uses many lines of filtering to optimize the removal of foul language.\n"
+    print "Composed of languagefilter.py, main.py, ProfaneWords.py, variations.py,\nand all the other supporting documents this program uses many\nlines of filtering to optimize the removal of foul language.\n"
     print "This CLI made possible with patorjk.com and code.activestate.com/recipes/410692"
     print "##########\n\n\n"
 
+#The meat of the CLI. The menu is a bootstraped python switch within a while loop that waits for exit to be selected
+#by the user. Gives the user the option to input from a string or from files, the latter further offering the option to
+#write to a file or to the command line. The while loop calles the banner every time to give the illusion of a GUI, where
+#the same things are up on screen all the time. At the end of every line in the branch the program waits for a carriage
+#return from the user with raw_input, this lets the user choose when to move on and refresh the screen.
 def menu():
-    ascii()
     exit = False
     while(exit == False):
+        ascii()
         print "Main menu:"
         print "k: Filter from keyboard input."
         print "t: Filter a text file."
@@ -92,5 +100,5 @@ def menu():
                 print "\nIncorrect input.\n\n\n"
                 break
 
-#calling the menu fucntion which serves as the main
+#Calling the menu fucntion which serves as the main.
 menu()

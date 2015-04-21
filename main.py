@@ -1,19 +1,19 @@
 import sys, os
 import profaneWords, variations
 
-##adding functionality for reading the profanity from files, making them into things that can be passed to functions in this
-##or other modules
+#A function that takes a filename, tries to find it in the directory and then creates a list of lines.
 def fileToLines(filename):
     openedFile = open(filename, 'r')
     lines = openedFile.read().splitlines()
     openedFile.close()
     return lines
 
-##making a function to turn a text based input from web into lines to pass to functions
+#INPUT: a string. OUTPUT: a list of lines.
 def stringToLines(string):
     lines = string.splitlines()
     return lines
 
+#INPUT: a list of lines. OUTPUT: a list of words.
 def linesToList(lines):
     output = []
     for l in lines:
@@ -44,22 +44,28 @@ def censor(words):
     	censored = censored + words[w][0] + ' '
     return censored
 
+#Rudimentary write to file function.
 def outputToFile(filename, content):
-	# linesToList(stringToLines("Fuck your bitch ass, motherfucker")) 		# to test the list of lists
     with open(filename, 'w') as f:
             f.write(content)
     print "Filtered text has been written to '%s'." % filename 
 
+#This is the function that is called from languagefilter.py when output to file is selected. It opens the file
+#converts the data into a list and passes that to the main function. When it receives the output from main it writes it
+#using the method.
 def fileMain(filename, outputname):
     inlist = linesToList(fileToLines(filename))
     output = main(inlist)
     print "Filtering the contents of %s, and writing them to %s." % (filename, outputname)
     outputToFile(outputname, output)
 
+#The meat of the program, this function takes as input a list of words and goes through the lines of filtering by calling
+#functions from the supporting python files. A list of lists is produced, where the second cell keeps track of whether something
+#is meant to be filtered with [1] as either True or False. Once all the lines of filtering are complete, the function calls
+#the censor function which looks at that boolean value and censors it by calling the asterisk function.
 def main(inputList):
     cs = 5
     for w in range(len(inputList)):
-    	# print inputList[w][0]
         context = []
         if w-cs < 0 and w+cs >= len(inputList):
             context = inputList[0:len(inputList)]
@@ -69,7 +75,6 @@ def main(inputList):
             context = inputList[w-cs:len(inputList)]
         else:
             context = inputList[w-cs:w+cs]
-        # print context
         contextCopy = []
         for i in range(len(context)):
             contextCopy.append(context[i])
@@ -82,10 +87,5 @@ def main(inputList):
             ##variation check
         else:
             inputList[w].append(False) 
-        # print inputList[w]
     output = censor(inputList)
     return output
-
-##print linesToList(stringToLines("Fuck your bitch ass, motherfucker")) # to test the list of lists
-##print profaneWords.compare('fuck')
-##print censor([['Fuck',True],['your',False],['bitch',True],['ass',True]])
