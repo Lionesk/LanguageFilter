@@ -37,5 +37,5 @@ okayContexts = {} # dictionary for
 # print leet
 
 def filterVariations(ls):
-	for s in ls:
-		pass
+    for s in ls:
+    	pass

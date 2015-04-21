@@ -3,9 +3,9 @@
 import re
 from levenshtein import levenshtein
 import wsd
-##is passed a line from the main function and finds the words that are on the profane word list
-# input: x, a string passed from main.py; c, the string's context (n words in either direction, including x, list format)
-# output: True if word should be censored, False otherwise
+
+#input: x, a string passed from main.py; c, the string's context (n words in either direction, including x, list format)
+#output: True if word should be censored, False otherwise
 def compare(y, con):
 	x = y.lower()
 	c = []
@@ -47,9 +47,6 @@ def compare(y, con):
 
 # input: a string passed from compare(x) and its context
 # output: True if word should be censored, False otherwise
-
-
-
 def examineImmediateContext(x, c):
 	wordListRaw = open('profaneWords.txt', 'r')
 	wordListRaw2 = wordListRaw.readlines()
@@ -74,7 +71,8 @@ def isWord(x): # sees if word is in emwClean.csv
 			return False
 
 def stringCheck(x): # sees if word is in truncated whitelist (shortened from emwClean.csv for speed of operation, to contain only clean words with coincidental profanity)
-	#print 'lol'
+#INPUT: A string passed from the compare function.
+#OUTPUT: A boolean, whether or not the word is found in the whitelist.
 	whitelistRaw = open('whitelist.csv','r')
 	whitelist = whitelistRaw.readlines()
 	for w in range(len(whitelist)):
