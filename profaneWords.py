@@ -3,9 +3,9 @@
 import re
 from levenshtein import levenshtein
 import wsd
-##is passed a line from the main function and finds the words that are on the profane word list
-# input: x, a string passed from main.py; c, the string's context (n words in either direction, including x, list format)
-# output: True if word should be censored, False otherwise
+
+#input: x, a string passed from main.py; c, the string's context (n words in either direction, including x, list format)
+#output: True if word should be censored, False otherwise
 def compare(y, con):
 	x = y.lower()
 	c = []
@@ -14,8 +14,6 @@ def compare(y, con):
 		c[w] = c[w][0].replace('\n','')
 		c[w] = re.sub(r'[^a-z ]','',c[w][0])
 	x = x.replace('\n','')
-	# print x
-	# print c
 	x = re.sub(r'[^a-z ]','',x)
 	wordListRaw = open('profaneWords.txt', 'r')
 	wordListRaw2 = wordListRaw.readlines()
@@ -24,7 +22,6 @@ def compare(y, con):
 		wordList.append(wordListRaw2[line].split('\t')) # splits TSV
 	for w in range(1,len(wordList)): # ignores headers
 		if (wordList[w][0] == x or wordList[w][0] + 's' == x or wordList[w][0] + 'es' == x or wordList[w][0] + 'ed' == x) and wordList[w][2] == '0':
-			# print 'unambiguous'
 			return True # avoids excess bureaucracy if not needed 
 		if wordList[w][0] in x: # looks only at first 'column'	
 			if wordList[w][1] == '0' and wordList[w][2] == '0': # i.e. if no ambiguity possible
@@ -44,10 +41,11 @@ def compare(y, con):
 
 # input: a string passed from compare(x)
 # output: True if word should be censored, False otherwise
-
 def examineImmediateContext(x, c):
 	return True
 
+#INPUT: A string passed from the compare function.
+#OUTPUT: A boolean, whether or not the word is found in the whitelist.
 def stringCheck(x):
 	whitelistRaw = open('whitelist.csv','r')
 	whitelist = whitelistRaw.readlines()
