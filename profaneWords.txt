@@ -1,54 +1,55 @@
-word	ambigLex	ambigStr	okContextBefore	okContextAfter	okCategory	okStr
-twat	0	1	null	null	null	atwater
-turd	0	0	null	null	null	null
-tit	0	1	null	null	null	titmouse
-spook	2	0	null	null	NOT-racial	null
-spic	1	0	null	and span	null	null
-slant-eye	0	0	null	null	null	null
-slag	0	1	null	null	null	slagheap
-shit	0	1	null	null	null	mishit
-schlong	0	0	null	null	null	null
-retarded	0	0	null	null	verb	null
-retard	0	0	null	null	verb	null
-pussy	2	0	null	null	NOT-anatomy	pussycat
-prick	2	0	null	null	NOT-anatomy	prickly
-poofter	0	0	null	null	null	null
-poof	2	1	null	null	NOT-sexual	spoof
-piss	0	0	null	null	null	null
-paki	0	1	null	null	null	pakistan
-nuts	2	0	null	null	NOT-anatomy	walnuts
-nigger	0	0	null	null	null	null
-nigga	0	0	null	null	null	null
-nads	1	1	null	null	null	gonads
-motherfucker	0	0	null	null	null	null
-mofo	0	1	null	null	null	mofongo
-kike	0	0	null	null	null	null
-kaffir	0	0	null	null	null	null
-jiggaboo	0	0	null	null	null	null
-jigaboo	0	0	null	null	null	null
-jap	0	1	null	null	null	japan
-hebe	0	1	null	null	null	thebes
-hard-on	0	0	null	null	null	null
-fuck	0	0	null	null	null	null
-faggot	1	0	pork	null	null	null
-fag	2	1	null	null	smoking	wharfage
-dyke	1	0	van	null	null	null
-dick	2	1	spotted~private	null	name	dickens
-damn	0	0	null	null	null	null
-cunt	0	0	null	null	null	null
-coon	2	1	null	null	NOT-racial	coonskin
-cocksucker	0	0	null	null	null	null
-cock	2	1	null	null	NOT-anatomy	cockle
-clit	0	0	null	null	null	null
-chink	2	0	null	null	armor	null
-butthole	1	0	null	surfers	null	null
-bugger	0	0	null	null	null	null
-boong	0	0	null	null	null	null
-boner	2	0	null	null	mistake	null
-bollocks	0	0	null	null	null	null
-bloody	2	0	null	null	anatomy	null
-bitch	2	0	null	null	dog	null
-bastard	0	0	null	null	null	null
-balls	2	0	null	null	NOT-anatomy	null
-ass	0	1	null	null	null	pass
-arse	0	1	null	null	null	arsenal
+word	ambigLex	ambigStr	okContext	okCategory	okStr
+twat	0	1	null	null	atwater
+turd	0	0	null	null	null
+tit	0	1	null	null	titmouse
+spook	2	0	null	NOT-racial	null
+spic	1	1	null	null	aspic
+slant-eye	0	0	null	null	null
+slag	0	1	null	null	slagheap
+shit	0	1	null	null	mishit
+schlong	0	0	null	null	null
+retarded	0	0	null	verb	null
+retard	0	0	null	verb	null
+pussy	2	0	null	NOT-anatomy	pussycat
+prick	2	0	null	NOT-anatomy	prickly
+poofter	0	0	null	null	null
+poof	2	1	null	NOT-sexual	spoof
+piss	0	0	null	null	null
+paki	0	1	null	null	pakistan
+nuts	2	0	null	NOT-anatomy	walnuts
+nigger	0	0	null	null	null
+nigga	0	0	null	null	null
+nads	0	1	null	null	gonads
+motherfucker	0	0	null	null	null
+mofo	0	1	null	null	mofongo
+kike	0	0	null	null	null
+kaffir	0	0	null	null	null
+jiggaboo	0	0	null	null	null
+jigaboo	0	0	null	null	null
+jap	0	1	null	null	japan
+hebe	0	1	null	null	thebes
+hard-on	0	0	null	null	null
+fuck	0	0	null	null	null
+faggot	1	0	pork	null	null
+fag	2	1	null	smoking	wharfage
+dyke	1	0	van	null	null
+dick	2	1	null	name	dickens
+damn	0	0	null	null	null
+cunt	0	0	null	null	null
+coon	2	1	null	NOT-racial	coonskin
+cocksucker	0	0	null	null	null
+cock	2	1	null	NOT-anatomy	cockle
+clit	0	0	null	null	null
+chink	2	0	null	armor	null
+butthole	1	0	surfers	null	null
+bugger	0	0	null	null	null
+boong	0	0	null	null	null
+boner	2	0	null	mistake	null
+bollocks	0	0	null	null	null
+bloody	2	0	null	anatomy	null
+bitch	2	0	null	dog	null
+bastard	0	0	null	null	null
+balls	2	0	null	NOT-anatomy	null
+ass	0	1	null	null	pass
+arse	0	1	null	null	arsenal
+cum	1	1	laude	NOT-latinate	scum

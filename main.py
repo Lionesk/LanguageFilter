@@ -64,7 +64,7 @@ def fileMain(filename, outputname):
 #is meant to be filtered with [1] as either True or False. Once all the lines of filtering are complete, the function calls
 #the censor function which looks at that boolean value and censors it by calling the asterisk function.
 def main(inputList):
-    cs = 5
+    cs = 5 # context size
     for w in range(len(inputList)):
         context = []
         if w-cs < 0 and w+cs >= len(inputList):
@@ -81,6 +81,7 @@ def main(inputList):
         inputListCopy = []
         for i in range(len(inputList)):
             inputListCopy.append(inputList[i])
+        # print contextCopy
         if profaneWords.compare(inputListCopy[w][0], contextCopy) == True:
             inputList[w].append(True)
         ##elif:
