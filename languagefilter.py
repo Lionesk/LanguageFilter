@@ -1,110 +1,75 @@
-import sys, os, os.path
-from main import fileToLines, stringToLines, linesToList, main, fileMain
+from features import profaneWords
 
 
-# A recipe we pulled from the web for implementing a switch feature in Python, very useful for the CLI.
-class switch(object):
-    def __init__(self, value):
-        self.value = value
-        self.fall = False
+def asterisk(s):
+    # INPUT: a string. OUTPUT: that string, with all characters except the first replaced with asterisks
+    if len(s) < 3:
+        return s
+    cens = ''
+    cens = cens + s[0]
+    for n in range(len(s) - 2):
+        cens = cens + '*'
+    cens = cens + s[len(s) - 1]
+    return cens
 
-    def __iter__(self):
-        yield self.match
-        raise StopIteration
 
-    def match(self, *args):
-        if self.fall or not args:
-            return True
-        elif self.value in args:
-            self.fall = True
-            return True
+def censor(words):
+    # INPUT: a list of lists. For each sublist, words[n][0] is a word, and words[n][1] is a boolean, with True meaning
+    # "censor this" and False meaning "print as-is". OUTPUT: The censored text in string form
+    censored = ''
+    for w in range(len(words)):
+        if words[w][1] == True:
+            words[w][0] = asterisk(words[w][0])
+        censored = censored + words[w][0] + ' '
+    return censored
+
+
+# Rudimentary write to file function.
+def outputToFile(filename, content):
+    with open(filename, 'w') as f:
+        f.write(content)
+    print("Filtered text has been written to '%s'." % filename)
+
+
+# This is the function that is called from languagefilter.py when output to file is selected. It opens the file
+# converts the data into a list and passes that to the main function. When it receives the output from main it writes it
+# using the method.
+def fileMain(filename, outputname):
+    inlist = linesToList(fileToLines(filename))
+    output = main(inlist)
+    print("Filtering the contents of %s, and writing them to %s." % (filename, outputname))
+    outputToFile(outputname, output)
+
+
+# The meat of the program, this function takes as input a list of words and goes through the lines of filtering by
+# calling functions from the supporting python files. A list of lists is produced, where the second cell keeps track of
+# whether something is meant to be filtered with [1] as either True or False. Once all the lines of filtering are
+# complete, the function calls the censor function which looks at that boolean value and censors it by calling the
+# asterisk function.
+def main(inputList):
+    cs = 5  # context size
+    for w in range(len(inputList)):
+        context = []
+        if w - cs < 0 and w + cs >= len(inputList):
+            context = inputList[0:len(inputList)]
+        elif w - cs < 0 and w + cs < len(inputList):
+            context = inputList[0:w + cs]
+        elif w - cs >= 0 and w + cs >= len(inputList):
+            context = inputList[w - cs:len(inputList)]
         else:
-            return False
-
-
-# The banner that appears at the top of the program. Clears the command line (cross platform) to make the program look clean.
-def ascii():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    print("################################################################")
-    print("  _                                        ___ _ _ _           ")
-    print(" | |   __ _ _ _  __ _ _  _ __ _ __ _ ___  | __(_) | |_ ___ _ _ ")
-    print(" | |__/ _` | ' \/ _` | || / _` / _` / -_) | _|| | |  _/ -_) '_|")
-    print(" |____\__,_|_||_\__, |\_,_\__,_\__, \___| |_| |_|_|\__\___|_|  ")
-    print("                |___/          |___/                           ")
-    print("################################################################")
-    print("Version 0.1 #################### Liam Bassford & Emilio Assuncao")
-    print("\n\n\n")
-
-
-# Basic information about the program. Called by the menu function when the user inputs the command.
-def info():
-    print("\n##########")
-    print("Composed of languagefilter.py, main.py, ProfaneWords.py, variations.py,\nand all the other supporting "
-          "documents this program uses many\nlines of filtering to optimize the removal of foul language.\n")
-    print("This CLI made possible with patorjk.com and code.activestate.com/recipes/410692")
-    print("##########\n\n\n")
-
-
-# The meat of the CLI. The menu is a bootstraped python switch within a while loop that waits for exit to be selected
-# by the user. Gives the user the option to input from a string or from files, the latter further offering the option to
-# write to a file or to the command line. The while loop calles the banner every time to give the illusion of a GUI, where
-# the same things are up on screen all the time. At the end of every line in the branch the program waits for a carriage
-# return from the user with raw_input, this lets the user choose when to move on and refresh the screen.
-def menu():
-    exit = False
-    while (exit == False):
-        ascii()
-        print("Main menu:")
-        print("k: Filter from keyboard input.")
-        print("t: Filter a text file.")
-        print("x: Exit.")
-        print("i: About this program.\n")
-        o = input(":")
-        for case in switch(o):
-            if case('x'):
-                print("\nExiting the program.")
-                exit = True
-                break
-            if case('i'):
-                info()
-                input("Continue...")
-                break
-            if case('k'):
-                print("\nType in the string you would like to filter.\n")
-                rawInput = input(":")
-                print("\nHere is the filtered string:")
-                print(main(linesToList(stringToLines(rawInput))))
-                input("Continue...\n")
-                print("\n\n\n")
-                break
-            if case('t'):
-                filename = input("\nPlease enter the name of the file.\n:")
-                while os.path.exists(filename):
-                    print("File couldn't be found.")
-                    filename = input("\nPlease enter the name of the file.\n:")
-                print("Would you like to write the results to a text file?\n(y/n)")
-                t = input(":")
-                for case in switch(t):
-                    if case('y'):
-                        outfilename = input("\nEnter a name for the output file. (Default is results.txt)\n:")
-                        if outfilename == '':
-                            outfilename = 'results.txt'
-                        fileMain(filename, outfilename)
-                        break
-                    if case('n'):
-                        print("\nHere is the filtered text:")
-                        print(main(linesToList(fileToLines(filename))))
-                        break
-                    if case():
-                        print("\nIncorrect input.")
-                        break
-                input("Continue...\n")
-                print("\n\n\n")
-                break
-            if case():
-                print("\nIncorrect input.\n\n\n")
-                break
-
-
-# Calling the menu function which serves as the main.
-menu()
+            context = inputList[w - cs:w + cs]
+        contextCopy = []
+        for i in range(len(context)):
+            contextCopy.append(context[i])
+        inputListCopy = []
+        for i in range(len(inputList)):
+            inputListCopy.append(inputList[i])
+        # print contextCopy
+        if profaneWords.compare(inputListCopy[w][0], contextCopy) == True:
+            inputList[w].append(True)
+            ##elif:
+            ##variation check
+        else:
+            inputList[w].append(False)
+    output = censor(inputList)
+    return output

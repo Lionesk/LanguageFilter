@@ -1,8 +1,9 @@
 # this file contains all the fucntions for removing/replacing profane words from a text
 # that is, all words that are unambiguously profane -- which are contained in the profaneWords plain text file
 import re
-from levenshtein import levenshtein
+
 import wsd
+from utils.levenshtein import levenshtein
 
 
 # input x, a string passed from main.py; c, the string's context (n words in either direction, including x, list format)

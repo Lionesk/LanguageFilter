@@ -1,3 +1,5 @@
+# NEVER USED
+
 import re
 re.IGNORECASE # shortcut to ignore whether something is upper- or lowercase
 leet = {} # leetspeak dictionary
