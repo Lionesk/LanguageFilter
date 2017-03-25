@@ -1,9 +1,13 @@
 # A function that takes a filename, tries to find it in the directory and then creates a list of lines.
 def fileToLines(filename):
-    openedFile = open(filename, 'r')
-    lines = openedFile.read().splitlines()
-    openedFile.close()
-    return lines
+    try:
+        lines = []
+        openedFile = open(filename, 'r')
+        lines = openedFile.read().splitlines()
+        openedFile.close()
+        return lines
+    except FileNotFoundError:
+        print("File %s does not exist." % filename)
 
 
 # INPUT: a string. OUTPUT: a list of lines.

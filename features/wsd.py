@@ -1,7 +1,9 @@
 # input: a context file
 # output: a dictionary
 import re
+import os
 
+cur_path = os.path.dirname(__file__)
 
 # input: a filename and the string representing the word being searched for
 # output: a dictionary containing frequencies for each word in the token's context
@@ -38,8 +40,8 @@ def wordbag(f, s):
 # input: a word to disambiguate
 # output: a list of ratios. Higher -> more likely to be found in clean context
 def getRatios(s):
-    f0 = 'wsd/' + s + '-0.txt'
-    f1 = 'wsd/' + s + '-1.txt'
+    f0 = os.path.relpath('..\\wsd\\' + s + '-0.txt', cur_path)
+    f1 = os.path.relpath('..\\wsd\\' + s + '-1.txt', cur_path)
     c0 = wordbag(f0, s)
     c1 = wordbag(f1, s)
 

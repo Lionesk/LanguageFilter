@@ -1,10 +1,15 @@
 # this file contains all the fucntions for removing/replacing profane words from a text
 # that is, all words that are unambiguously profane -- which are contained in the profaneWords plain text file
 import re
+import os
 
-import wsd
+from features import wsd
 from utils.levenshtein import levenshtein
 
+# Creating the paths to used files
+cur_path = os.path.dirname(__file__)
+profane_path = os.path.relpath('..\\data\\profaneWords.txt', cur_path)
+emwclean_path = os.path.relpath('..\\data\\emwClean.csv', cur_path)
 
 # input x, a string passed from main.py; c, the string's context (n words in either direction, including x, list format)
 # output: True if word should be censored, False otherwise
@@ -18,7 +23,7 @@ def compare(y, con):
     x = x.replace('\n', '')  # strips newline
     x = re.sub(r'[^a-z ]', '', x)  # turns to lowercase, strips all non-alphanumeric characters
     # print c
-    wordListRaw = open('profaneWords.txt', 'r')  # opens the blacklist
+    wordListRaw = open(profane_path, 'r')  # opens the blacklist
     wordListRaw2 = wordListRaw.readlines()
     wordList = []
     for line in range(len(wordListRaw2)):
@@ -69,7 +74,7 @@ def examineImmediateContext(x, c):
 
 
 def isWord(x):  # sees if word is in emwClean.csv
-    words = open('emwClean.csv', 'r')
+    words = open(emwclean_path, 'r')
     wordlist = words.readlines()
     for w in wordlist:
         if w in x:

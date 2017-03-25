@@ -8,7 +8,7 @@ from features import profaneWords
 from utils.lines import linesToList, fileToLines
 
 
-def main(inputList):
+def filtertext(inputList):
     cs = 5  # context size
     for w in range(len(inputList)):
         context = []

@@ -1,7 +1,10 @@
 import os
 import os.path
-from .lines import *
+from utils.lines import *
+from features.filter import *
 
+
+# TODO: refactor the calls to filter methods
 
 # A recipe we pulled from the web for implementing a switch feature in Python, very useful for the CLI.
 class switch(object):
@@ -74,7 +77,7 @@ def cli():
                 print("\nType in the string you would like to filter.\n")
                 rawInput = input(":")
                 print("\nHere is the filtered string:")
-                print(main(linesToList(stringToLines(rawInput))))
+                print(filtertext(linesToList(stringToLines(rawInput))))
                 input("Continue...\n")
                 print("\n\n\n")
                 break
@@ -94,7 +97,7 @@ def cli():
                         break
                     if case('n'):
                         print("\nHere is the filtered text:")
-                        print(main(linesToList(fileToLines(filename))))
+                        print(filtertext(linesToList(fileToLines(filename))))
                         break
                     if case():
                         print("\nIncorrect input.")
@@ -106,3 +109,4 @@ def cli():
                 print("\nIncorrect input.\n\n\n")
                 break
 
+cli()
