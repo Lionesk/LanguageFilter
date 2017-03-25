@@ -8,8 +8,8 @@ from utils.levenshtein import levenshtein
 
 # Creating the paths to used files
 cur_path = os.path.dirname(__file__)
-profane_path = os.path.relpath('..\\data\\profaneWords.txt', cur_path)
-emwclean_path = os.path.relpath('..\\data\\emwClean.csv', cur_path)
+profane_path = 'data\\profaneWords.txt'
+emwclean_path = 'data\\emwClean.csv'
 
 # input x, a string passed from main.py; c, the string's context (n words in either direction, including x, list format)
 # output: True if word should be censored, False otherwise
@@ -22,7 +22,6 @@ def compare(y, con):
         c[w] = re.sub(r'[^a-z ]', '', c[w])  # strips all non-alphanumeric characters
     x = x.replace('\n', '')  # strips newline
     x = re.sub(r'[^a-z ]', '', x)  # turns to lowercase, strips all non-alphanumeric characters
-    # print c
     wordListRaw = open(profane_path, 'r')  # opens the blacklist
     wordListRaw2 = wordListRaw.readlines()
     wordList = []
@@ -88,7 +87,7 @@ def stringCheck(x):
     # clean words with coincidental profanity)
     # INPUT: A string passed from the compare function.
     # OUTPUT: A boolean, whether or not the word is found in the whitelist.
-    whitelistRaw = open('whitelist.csv', 'r')
+    whitelistRaw = open('data\\whitelist.csv', 'r')
     whitelist = whitelistRaw.readlines()
     for w in range(len(whitelist)):
         whitelist[w] = whitelist[w].replace('\n', '')

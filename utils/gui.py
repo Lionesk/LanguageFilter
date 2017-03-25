@@ -2,6 +2,7 @@ from tkinter import *
 from features import filter
 from utils import lines
 
+
 root = Tk()
 
 filter_output = StringVar()
@@ -11,10 +12,7 @@ def display_filtered():
     global text_entry
     filter_output.set(filter.filtertext(filter.linesToList(lines.stringToLines(text_entry.get()))))
 
-frame = Frame(root, width=300, height=250)
-
 top_label = Label(root, text="Language Filter")
-output_label = Label(root)
 
 text_entry = Entry(root)
 
